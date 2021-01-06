@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Conway's Game of Life After one iteration 1`] = `
+Array [
+  Object {
+    "coords": Array [
+      1,
+      2,
+    ],
+    "state": "#",
+  },
+  Object {
+    "coords": Array [
+      1,
+      0,
+    ],
+    "state": "#",
+  },
+  Object {
+    "coords": Array [
+      2,
+      2,
+    ],
+    "state": "#",
+  },
+  Object {
+    "coords": Array [
+      2,
+      1,
+    ],
+    "state": "#",
+  },
+  Object {
+    "coords": Array [
+      3,
+      1,
+    ],
+    "state": "#",
+  },
+]
+`;
