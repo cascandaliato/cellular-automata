@@ -33,6 +33,10 @@
   },
   "name": "@cascandaliato/cellular-automata",
   "author": "Carmelo Scandaliato",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cascandaliato/cellular-automata"
+  },
   "module": "dist/cellular-automata.esm.js",
   "size-limit": [
     {
