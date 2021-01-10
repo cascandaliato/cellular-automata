@@ -1,4 +1,7 @@
+import * as Limits from './limits';
+import * as Neighbors from './neighbors';
+
 export { Automaton } from './automaton';
-export * as Limits from './limits';
-export * as Neighbors from './neighbors';
 export * from './presets';
+export { Limits };
+export { Neighbors };
