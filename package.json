@@ -14,11 +14,11 @@
     "node": ">=12"
   },
   "scripts": {
-    "start": "tsdx watch --target node --format csj",
-    "build": "tsdx build --target node --format csj",
+    "start": "tsdx watch --target node --format cjs",
+    "build": "tsdx build --target node --format cjs",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build --target node --format csj",
+    "prepare": "tsdx build --target node --format cjs",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },

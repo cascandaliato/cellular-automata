@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Nothing yet!
 
+## [1.0.2] - 2021-01-10
+
+### Fixed
+
+- Build command.
+
 ## [1.0.1] - 2021-01-10
 
 ### Fixed
@@ -34,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `byManhattanDistance` (alias for `vonNeumann`),
 - Tests for `Neighbors` and `Conway`.
 
-[unreleased]: https://github.com/cascandaliato/cellular-automata/compare/v1.0.1...HEAD
+[unreleased]: https://github.com/cascandaliato/cellular-automata/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/cascandaliato/cellular-automata/releases/tag/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/cascandaliato/cellular-automata/releases/tag/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/cascandaliato/cellular-automata/releases/tag/v1.0.0
