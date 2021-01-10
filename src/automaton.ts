@@ -27,7 +27,6 @@ type AutomatonConfig<N extends number, STATE extends string> = {
 
 class ConfigurableAutomaton<DIMENSIONS extends number, STATE extends string> {
   private grid: HyperGrid<DIMENSIONS, STATE>;
-  private generation: number = 0;
   private history: Entries<DIMENSIONS, STATE>[] = [];
 
   constructor(private config: AutomatonConfig<DIMENSIONS, STATE>) {
@@ -64,7 +63,6 @@ class ConfigurableAutomaton<DIMENSIONS extends number, STATE extends string> {
         );
         newGrid.set(coords, newState);
       });
-      this.generation += 1;
       this.history.push(this.toEntries());
       this.grid = newGrid;
     }
@@ -81,45 +79,6 @@ class ConfigurableAutomaton<DIMENSIONS extends number, STATE extends string> {
 
   countByState(): Counter<STATE> {
     return new Counter<STATE>(this.toEntries().map(({ state }) => state));
-  }
-
-  print(): void {
-    const entries = this.toEntries();
-    if (entries.length === 0) return;
-
-    const dims = entries[0].coords.length;
-
-    const minMax = this.toEntries()
-      .map(({ coords }) => coords)
-      .reduce(
-        (acc, coords) => {
-          for (let d = 0; d < coords.length; d++) {
-            acc[d][0] = Math.min(acc[d][0], coords[d]);
-            acc[d][1] = Math.max(acc[d][1], coords[d]);
-          }
-          return acc;
-        },
-        Array.from({ length: dims }, () => [+Infinity, -Infinity])
-      );
-
-    if (dims === 1) {
-      let line = '';
-      for (let i = minMax[0][0]; i <= minMax[0][1]; i++) {
-        line += this.grid.get([i] as TupleOf<DIMENSIONS, number>);
-      }
-      console.log(line);
-      console.log();
-    } else if (dims === 2) {
-      console.log(`gen=${this.generation}`);
-      for (let r = minMax[0][0]; r <= minMax[0][1]; r++) {
-        let row = '';
-        for (let c = minMax[1][0]; c <= minMax[1][1]; c++) {
-          row += this.grid.get([r, c] as TupleOf<DIMENSIONS, number>);
-        }
-        console.log(row);
-      }
-      console.log();
-    }
   }
 }
 
