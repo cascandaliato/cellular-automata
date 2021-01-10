@@ -20,7 +20,7 @@ const Conway = (
   type ALIVE = typeof alive;
   type STATE = DEAD | ALIVE;
 
-  return Automaton<DIMENSIONS, [DEAD, ALIVE]>(
+  return Automaton<DIMENSIONS, DEAD | ALIVE>(
     merge(
       {
         cell: {
@@ -77,6 +77,19 @@ Conway.fromMatrix = (
 
 const ConwayInfinite = Conway;
 
+const Conway2D = (
+  dead: string,
+  alive: string,
+  initialState: Entries<2, typeof dead | typeof alive> = [],
+  overrides: DeepPartial<AutomatonConfig<2, typeof dead | typeof alive>> = {}
+) => Conway(2, dead, alive, initialState as Entries<number, string>, overrides);
+
+Conway2D.fromMatrix = (
+  dead: string,
+  alive: string,
+  matrix: HyperRectangle<typeof dead | typeof alive> = []
+) => Conway.fromMatrix(2, dead, alive, matrix);
+
 const ConwayFinite = (
   limits: number[] | [number, number][],
   dead: string,
@@ -106,4 +119,4 @@ ConwayFinite.fromMatrix = (
     ) as unknown) as Entries<typeof limits.length, typeof dead | typeof alive>
   );
 
-export { Conway, ConwayInfinite, ConwayFinite };
+export { Conway, Conway2D, ConwayInfinite, ConwayFinite };

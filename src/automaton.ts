@@ -25,18 +25,13 @@ type AutomatonConfig<N extends number, STATE extends string> = {
   isWithinLimits(coords: Coords<N>): boolean;
 };
 
-class ConfigurableAutomaton<
-  DIMENSIONS extends number,
-  STATES extends string[]
-> {
-  private grid: HyperGrid<DIMENSIONS, STATES[number]>;
+class ConfigurableAutomaton<DIMENSIONS extends number, STATE extends string> {
+  private grid: HyperGrid<DIMENSIONS, STATE>;
   private generation: number = 0;
-  private history: Entries<DIMENSIONS, STATES[number]>[] = [];
+  private history: Entries<DIMENSIONS, STATE>[] = [];
 
-  constructor(private config: AutomatonConfig<DIMENSIONS, STATES[number]>) {
-    this.grid = new HyperGrid<DIMENSIONS, STATES[number]>(
-      config.cell.defaultState
-    );
+  constructor(private config: AutomatonConfig<DIMENSIONS, STATE>) {
+    this.grid = new HyperGrid<DIMENSIONS, STATE>(config.cell.defaultState);
     for (const cell of config.initialState)
       this.grid.set(cell.coords, cell.state);
   }
@@ -52,13 +47,13 @@ class ConfigurableAutomaton<
           expanded.add(nCoords)
         );
       });
-      const newGrid = new HyperGrid<DIMENSIONS, STATES[number]>(
+      const newGrid = new HyperGrid<DIMENSIONS, STATE>(
         this.config.cell.defaultState
       );
       [...expanded].forEach(coords => {
         const neighborsLocal: Entries<
           DIMENSIONS,
-          STATES[number]
+          STATE
         > = getNeighborsWithinLimits(coords).map(nCoords => ({
           coords: nCoords,
           state: this.grid.get(nCoords),
@@ -77,17 +72,15 @@ class ConfigurableAutomaton<
     return this;
   }
 
-  toEntries(): Entries<DIMENSIONS, STATES[number]> {
+  toEntries(): Entries<DIMENSIONS, STATE> {
     return [...this.grid].map(([coords, state]) => ({
       coords,
       state,
     }));
   }
 
-  countByState(): Counter<STATES[number]> {
-    return new Counter<STATES[number]>(
-      this.toEntries().map(({ state }) => state)
-    );
+  countByState(): Counter<STATE> {
+    return new Counter<STATE>(this.toEntries().map(({ state }) => state));
   }
 
   print(): void {
@@ -130,8 +123,8 @@ class ConfigurableAutomaton<
   }
 }
 
-const Automaton = <DIMENSIONS extends number, STATES extends string[]>(
-  config: AutomatonConfig<DIMENSIONS, STATES[number]>
-) => new ConfigurableAutomaton<DIMENSIONS, STATES>(config);
+const Automaton = <DIMENSIONS extends number, STATE extends string>(
+  config: AutomatonConfig<DIMENSIONS, STATE>
+) => new ConfigurableAutomaton<DIMENSIONS, STATE>(config);
 
 export { Automaton, AutomatonConfig, ConfigurableAutomaton, Coords, Entries };
